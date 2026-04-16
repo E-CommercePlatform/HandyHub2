@@ -1,0 +1,184 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="container-fluid px-3 px-md-4 mt-4">
+  <!-- Title Section -->
+  <div class="row">
+    <div class="col-12 mt-4 mb-4 d-flex justify-content-center offset-lg-1">
+      <h2 class="text-center mb-4 fw-bold text-dark">Your Wishlist</h2>
+    </div>
+  </div>
+
+  <!-- Table layout for larger screens -->
+  <div class="d-none d-md-block row justify-content-center offset-lg-2">
+    <div class="col-12">
+      <div class="table-responsive rounded shadow-lg">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="text-center py-3 fw-semibold">Product Image</th>
+              <th class="text-center py-3 fw-semibold">Product Name</th>
+              <th class="text-center py-3 fw-semibold">Price</th>
+              <th class="text-center py-3 fw-semibold">Action</th>
+              <th class="text-center py-3 fw-semibold">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% wishlistItems.forEach(item => { %> <% if (item.product) { %>
+            <tr class="border-bottom">
+              <td class="text-center py-3">
+                <img
+                  src="<%= item.product.image %>"
+                  alt="<%= item.product.name %>"
+                  class="rounded border"
+                  width="100"
+                  height="80"
+                />
+              </td>
+              <td class="text-center py-3 align-middle">
+                <h6 class="mb-0 fw-semibold text-dark">
+                  <%= item.product.title %>
+                </h6>
+              </td>
+              <td class="text-center py-3">
+                <% let discountPercentage = 0; %> <% if (item.product.oldPrice)
+                { %> <% discountPercentage = Math.round(((item.product.oldPrice
+                - item.product.price) / item.product.oldPrice) * 100); %>
+                <div class="d-flex flex-column align-items-center">
+                  <span class="text-muted text-decoration-line-through small"
+                    >₹<%= item.product.oldPrice %></span
+                  >
+                  <strong class="text-dark fs-5"
+                    >₹<%= item.product.price %></strong
+                  >
+                </div>
+                <% } else { %>
+                <div class="d-flex flex-column align-items-center">
+                  <strong class="text-dark fs-5"
+                    >₹<%= item.product.price %></strong
+                  >
+                </div>
+                <% } %>
+              </td>
+              <td class="text-center py-3">
+                <form action="/cart/<%= item.product._id %>" method="POST">
+                  <button
+                    type="submit"
+                    class="btn btn-dark btn-sm px-3 py-2 fw-semibold"
+                  >
+                    ADD TO CART
+                  </button>
+                </form>
+              </td>
+              <td class="text-center py-3">
+                <form
+                  action="/wishlist/<%= item.product._id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-outline-danger btn-sm p-2"
+                    title="Remove from wishlist"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% } %> <% }) %> <% if (wishlistItems.length === 0) { %>
+            <tr>
+              <td colspan="5" class="text-center py-5">
+                <div class="text-muted">
+                  <i class="fas fa-heart fa-3x mb-3 text-secondary"></i>
+                  <h4 class="mb-3 text-secondary">Your wishlist is empty</h4>
+                  <p class="mb-4">
+                    Discover amazing products and add them to your wishlist
+                  </p>
+                  <a href="/products" class="btn btn-primary px-4 py-2">
+                    <i class="fas fa-shopping-bag me-2"></i>Continue Shopping
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card layout for mobile screens -->
+  <div class="d-md-none">
+    <% if (wishlistItems.length === 0) { %>
+    <div class="text-center py-5 text-muted">
+      <i class="fas fa-heart fa-3x mb-3 text-secondary"></i>
+      <h4 class="mb-3 text-secondary">Your wishlist is empty</h4>
+      <p class="mb-4">
+        Discover amazing products and add them to your wishlist
+      </p>
+      <a href="/products" class="btn btn-primary px-4 py-2">
+        <i class="fas fa-shopping-bag me-2"></i>Continue Shopping
+      </a>
+    </div>
+    <% } else { %> <% wishlistItems.forEach(item => { %> <% if (item.product) {
+    %>
+    <div class="card mb-4 shadow-sm">
+      <div class="row g-0">
+        <div class="col-4">
+          <img
+            src="<%= item.product.image %>"
+            class="img-fluid rounded-start h-100"
+            alt="<%= item.product.name %>"
+          />
+        </div>
+        <div class="col-8">
+          <div class="card-body p-3">
+            <h6 class="card-title fw-bold"><%= item.product.title %></h6>
+            <div class="d-flex flex-column mb-2">
+              <% let discountPercentage = 0; %> <% if (item.product.oldPrice) {
+              %> <% discountPercentage = Math.round(((item.product.oldPrice -
+              item.product.price) / item.product.oldPrice) * 100); %>
+              <small class="text-muted text-decoration-line-through"
+                >₹<%= item.product.oldPrice %></small
+              >
+              <span class="fw-semibold fs-6 text-dark"
+                >₹<%= item.product.price %></span
+              >
+              <span class="badge bg-danger rounded-pill mt-1"
+                >- <%= discountPercentage %>% Off</span
+              >
+              <% } else { %>
+              <span class="fw-semibold fs-6 text-dark"
+                >₹<%= item.product.price %></span
+              >
+              <% } %>
+            </div>
+            <div class="d-flex justify-content-between">
+              <form action="/cart/add" method="POST">
+                <input
+                  type="hidden"
+                  name="productId"
+                  value="<%= item.product._id %>"
+                />
+                <button type="submit" class="btn btn-dark btn-sm px-2">
+                  Add to Cart
+                </button>
+              </form>
+              <form
+                action="/wishlist/<%= item.product._id %>?_method=DELETE"
+                method="POST"
+              >
+                <button
+                  type="submit"
+                  class="btn btn-outline-danger btn-sm px-2"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %> <% }) %> <% } %>
+  </div>
+</div>

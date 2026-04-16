@@ -1,0 +1,177 @@
+<% layout("/layouts/boilerplate") -%>
+<div class="row">
+  <!-- Sidebar -->
+  <div class="col-lg-4 col-md-4 pe-0">
+    <div class="sidebar-container mt-5">
+      <!-- Navigation Items -->
+      <div class="nav-item active mb-1 ">
+        <a href="#" class="nav-link d-flex align-items-center">
+          <i class="fas fa-user me-3"></i>
+          <span>My Profile</span>
+        </a>
+      </div>
+      <div class="nav-item mb-1">
+        <a href="/order/myorders" class="nav-link d-flex align-items-center">
+          <i class="fas fa-shopping-cart me-3"></i>
+          <span>My Orders</span>
+        </a>
+      </div>
+      <div class="nav-item mb-1">
+        <a href="#" class="nav-link d-flex align-items-center">
+          <i class="fas fa-box me-3"></i>
+          <span>Sold Products</span>
+        </a>
+      </div>
+      <div class="nav-item mb-1">
+        <a href="/sell" class="nav-link d-flex align-items-center">
+          <i class="fas fa-plus me-3"></i>
+          <span>Sell New Product</span>
+        </a>
+      </div>
+      
+      <div class="nav-item logout mt-4">
+        <% if(currUser) { %>
+        <a href="/logout" class="nav-link d-flex align-items-center text-danger">
+          <i class="fas fa-sign-out-alt me-3"></i>
+          <span>Logout</span>
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="col-lg-8 ps-4">
+    <div class="main-content">
+      <!-- Welcome Section -->
+      <div class="welcome-section mb-4">
+        <div class="d-flex align-items-center">
+          <div class="user-avatar me-4">
+            <div class="avatar-circle">
+              <span class="avatar-initial"><%= username.charAt(0).toUpperCase() %></span>
+            </div>
+          </div>
+          <div class="user-info">
+            <h2 class="welcome-title mb-2">Welcome, <%= name %>!</h2>
+            <div class="d-flex align-items-center text-muted mb-3">
+              <i class="fas fa-envelope me-2"></i>
+              <span><%= email %></span>
+            </div>
+            <span class="active-badge dasboard-badge">Active Member</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistics Cards -->
+      <div class="row mb-5">
+        <div class="col-lg-4 col-md-6 mb-3" onclick="scrollToProducts()" style="cursor: pointer;">
+          <div class="stat-card">
+            <div class="stat-header">
+              <h6 class="stat-title">Products Added</h6>
+              <div class="stat-icon products-icon">
+                <i class="fas fa-cube"></i>
+              </div>
+            </div>
+            <div class="stat-number"><%= productCount %></div>
+            <div class="stat-subtitle">
+              <i class="fas fa-arrow-up me-1 text-success"></i>
+              Active listings
+            </div>
+          </div>
+        </div>
+       
+        
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div class="stat-card">
+            <div class="stat-header">
+              
+              <h6 class="stat-title">Orders Placed</h6>
+              <div class="stat-icon orders-icon">
+                <i class="fas fa-shopping-bag"></i>
+              </div>
+            </div>
+            <div class="stat-number"><%= orderCount %></div>
+            <div class="stat-subtitle">Total purchases made</div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div class="stat-card">
+            <div class="stat-header">
+              <h6 class="stat-title">Wishlist Items</h6>
+              <div class="stat-icon wishlist-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+            </div>
+            <div class="stat-number"><%= wishlistCount %></div>
+            <div class="stat-subtitle">Saved for later</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h5 class="section-title mb-4">Quick Actions</h5>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-3">
+            <a href="/sell">
+            <button class="action-btn primary-btn w-100">
+              <i class="fas fa-plus me-2"></i>
+              Add New Product
+            </button>
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-3">
+            <a href="/order/myorders" class="d-inline"></a>
+            <button class="action-btn secondary-btn w-100">
+              <i class="fas fa-shopping-cart me-2"></i>
+              View Orders
+            </button>
+          </div>
+          </a>
+          <div class="col-lg-4 col-md-6 mb-3">
+            <button class="action-btn secondary-btn w-100">
+              <i class="fas fa-heart me-2"></i>
+              My Wishlist
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mt-4 " id="my-products"> 
+  <h1 class="text-center mb-5">My Products</h1>
+  <div class="row g-3 offset-md-1 offset-0">
+    <% userProducts.forEach(product => { %>
+      <div class="col-md-3">
+        <div class="card shadow-sm" style="width: 100%; height: 380px;">
+          <img src="<%= product.image %>" class="card-img-top" alt="<%= product.title %>" style="height: 150px; object-fit: cover;" />
+          <div class="card-body p-2">
+            <h6 class="card-title mb-1"><%= product.title %></h6>
+            <p class="card-text mb-2 text-muted" style="font-size: 0.9rem;"><%= product.description %></p>
+            
+            <p class="mb-2 " style="font-size: 0.9rem;">
+              <p class="text-muted"> old Price :
+              <span >₹<%= product.oldPrice %></span>
+             </p>
+             <p class="text-muted"> new Price :
+              <span >₹<%= product.price %></span>
+              </p>
+            </p>
+
+             <div class="d-flex gap-2 mt-3">
+              <a href="/sell/products/<%= product._id %>/edit" class="btn btn-sm update"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Edit</a>
+              <form action="/sell/products/<%= product._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-sm dlt"><i class="fa-solid fa-trash"></i>&nbsp;Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+

@@ -1,0 +1,239 @@
+<% layout("/layouts/boilerplate") -%>
+<div class="main-contents">
+  <div class="form-container offset-md-2">
+    <!-- Header -->
+    <div class="form-header">
+      <h1 class="form-title">Edit your Product</h1>
+    </div>
+
+    <!-- Form Body -->
+    <div class="form-body">
+      <form
+        action="/sell/products/<%= foundProduct._id %>/update?_method=PUT"
+        method="post"
+        enctype="multipart/form-data"
+        id="productForm"
+      >
+        <!-- Product Title -->
+        <div class="form-group">
+          <label for="title" class="form-label">Product Title</label>
+          <input
+            type="text"
+            class="form-input"
+            id="title"
+            name="title"
+            placeholder="Enter product title..."
+            value="<%= foundProduct.title %>"
+            required
+          />
+        </div>
+
+        <!-- Product Image -->
+        <div class="form-group">
+          <label for="ProductImage" class="form-label">Product Image</label>
+          <div class="file-input-wrapper">
+            <input
+              type="file"
+              class="file-input"
+              id="ProductImage"
+              name="ProductImage"
+              accept="image/*"
+            />
+            <label for="ProductImage" class="file-input-label" id="fileLabel">
+              <span>📷 Choose New Image</span>
+            </label>
+          </div>
+          <div class="support-text">
+            Supported formats: JPG, PNG, GIF (Max: 5MB)
+          </div>
+          <% if (foundProduct.image) { %>
+          <div class="mt-2">
+            <p class="mb-1">Current Image:</p>
+            <img
+              src="<%= foundProduct.image %>"
+              alt="Current Product Image"
+              class="img-thumbnail"
+              style="max-height: 150px"
+            />
+          </div>
+          <% } %>
+        </div>
+
+        <!-- Actual Price -->
+        <div class="form-group">
+          <label for="actualPrice" class="form-label">Actual Price</label>
+          <div class="price-input-group">
+            <span class="currency-symbol">₹</span>
+            <input
+              type="number"
+              class="form-input price-input"
+              id="actualPrice"
+              name="actualPrice"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              value="<%= foundProduct.price %>"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Selling Price -->
+        <div class="form-group">
+          <label for="oldPrice" class="form-label">Old Price</label>
+          <div class="price-input-group">
+            <span class="currency-symbol">₹</span>
+            <input
+              type="number"
+              class="form-input price-input"
+              id="oldPrice"
+              name="oldPrice"
+              placeholder="0.00"
+              value="<%= foundProduct.oldPrice %>"
+            />
+          </div>
+          <!-- <div class="markup-note">
+            Automatically calculated with 20% markup
+          </div> -->
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+         <textarea name="description" class="form-input" rows="3" required><%= foundProduct.description %></textarea>
+        </div>
+
+        <!-- Manufacturing Date -->
+        <div class="form-group">
+          <label for="mfg" class="form-label">Manufacturing Date</label>
+          <input type="date" class="form-input" id="mfg" name="mfg"  value="<%= foundProduct.mfg ? new Date(foundProduct.mfg).toISOString().split('T')[0] : '' %>" required />
+        </div>
+
+        <!-- Category Selection -->
+        <div class="form-group">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-input" id="category" name="category" required>
+            <option value="<%= foundProduct.category %>">
+              <%= foundProduct.category %>
+            </option>
+            <option value="HomeDecore">Home Decore</option>
+            <option value="jewellery">Jewellery</option>
+            <option value="FashionAccessories">Fashion Accessories</option>
+            <option value="PersonalCare">Personal Care</option>
+            <option value="CraftandDiykit">Craft and DIY Kit</option>
+            <option value="KitchenItem">Kitchen Item</option>
+            <option value="HomeMadeFood">Homemade Food</option>
+          </select>
+        </div>
+
+        <!-- Submit Buttons -->
+        <button type="submit" class="submit-btn">Edit Product</button>
+        <button type="reset" class="reset-btn">Reset Form</button>
+      </form>
+    </div>
+
+    <!-- Preview Card -->
+    <div class="preview-card" id="previewCard">
+      <img
+        id="previewImage"
+        src="/placeholder.svg?height=120&width=120&text=Product"
+        alt="Preview"
+        class="preview-image"
+      />
+      <div class="preview-title" id="previewTitle">Product Title</div>
+      <div class="price-display">
+        <span class="original-price" id="previewOriginal">₹0.00</span>
+        <span class="selling-price" id="previewSelling">₹0.00</span>
+        <span class="discount-badge">20% Markup</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Form elements
+  const titleInput = document.getElementById("title");
+  const imageInput = document.getElementById("ProductImage");
+  const actualPriceInput = document.getElementById("actualPrice");
+  const sellingPriceInput = document.getElementById("sellingPrice");
+  const fileLabel = document.getElementById("fileLabel");
+  const previewCard = document.getElementById("previewCard");
+  const form = document.getElementById("productForm");
+
+  // Preview elements
+  const previewImage = document.getElementById("previewImage");
+  const previewTitle = document.getElementById("previewTitle");
+  const previewOriginal = document.getElementById("previewOriginal");
+  const previewSelling = document.getElementById("previewSelling");
+
+//   // Calculate selling price with 20% markup
+//   function calculateSellingPrice() {
+//     const actualPrice = parseFloat(actualPriceInput.value) || 0;
+//     const sellingPrice = (actualPrice * 1.2).toFixed(2);
+//     sellingPriceInput.value = sellingPrice;
+//     updatePreview();
+//   }
+
+  // Update live preview
+  function updatePreview() {
+    const title = titleInput.value || "Product Title";
+    const actualPrice = actualPriceInput.value || "0.00";
+    const sellingPrice = sellingPriceInput.value || "0.00";
+
+    previewTitle.textContent = title;
+    previewOriginal.textContent = `₹${actualPrice}`;
+    previewSelling.textContent = `₹${sellingPrice}`;
+
+    // Show preview if any field has value
+    if (titleInput.value || actualPriceInput.value || imageInput.files[0]) {
+      previewCard.classList.add("show");
+    } else {
+      previewCard.classList.remove("show");
+    }
+  }
+
+  // Handle file input
+  imageInput.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (file) {
+      fileLabel.innerHTML = `<span>${file.name}</span>`;
+      fileLabel.classList.add("has-file");
+
+      // Show image preview
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewImage.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      fileLabel.innerHTML = "<span>📷 Choose Image File</span>";
+      fileLabel.classList.remove("has-file");
+      previewImage.src = "/placeholder.svg?height=120&width=120&text=Product";
+    }
+    updatePreview();
+  });
+
+  // Event listeners
+  titleInput.addEventListener("input", updatePreview);
+  actualPriceInput.addEventListener("input", calculateSellingPrice);
+
+  // Form reset
+  form.addEventListener("reset", function () {
+    setTimeout(() => {
+      fileLabel.innerHTML = "<span>📷 Choose Image File</span>";
+      fileLabel.classList.remove("has-file");
+      previewCard.classList.remove("show");
+      previewImage.src = "/placeholder.svg?height=120&width=120&text=Product";
+    }, 10);
+  });
+
+  // Form submission with loading effect
+  form.addEventListener("submit", function (e) {
+    const submitBtn = document.querySelector(".submit-btn");
+    submitBtn.innerHTML = "Adding Product...";
+    submitBtn.classList.add("loading");
+    submitBtn.disabled = true;
+  });
+</script>
+
+

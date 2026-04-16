@@ -1,0 +1,29 @@
+<% layout("/layouts/boilerplate") -%>
+<div class="pro-container pb-5">
+  <div class="pro-cont">
+    <% for (let product of allProducts) { %>
+      <% let discountPercentage = 0; %>
+      <% if (product.oldPrice) { %>
+        <% discountPercentage = Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100); %>
+      <% } %>
+      <a href="/products/<%= product._id %>">
+        <div class="products">
+          <div class="product-img-container">
+            <img src="<%= product.image %>" alt="" class="product-img" />
+            <% if (product.oldPrice) { %> 
+              <span class="badge rounded-pill text-bg-danger"> <%= discountPercentage %>% Off</span>
+            <% } %>
+            
+          </div>
+          <p class="title"><%= product.title %></p>
+          <div class="price">
+            <% if (product.oldPrice) { %>
+              <p class="oldPrice">&#8377;<%= product.oldPrice %></p> &nbsp; &nbsp;
+            <% } %>
+            <p>&#8377;<%= product.price %></p>
+          </div>
+        </div>
+      </a>
+    <% } %>
+  </div>
+</div>
