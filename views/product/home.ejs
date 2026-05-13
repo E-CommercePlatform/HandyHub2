@@ -1,10 +1,204 @@
 <% layout("/layouts/boilerplate") -%>
-<body style="margin: 0 !important; padding: 0 !important;">
-    <div class="home">
-        <img src="/images/bg-img.jpg" alt="Background" class="bg-img">
-        <h1>Handcrafted with Heart, <br> Delivered with Love</h1>
-        <a href="/products">
-        <button class="btn btn-primary">Shop Now</button>
-        </a>
+
+<!-- HERO SECTION -->
+
+<div class="home">
+  <img src="/images/hero-image.jpg" alt="Background" class="bg-img" />
+
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <h1>
+      Handcrafted with Heart,
+      <br />
+
+      Delivered with Love
+
+      <span class="love-wrapper" id="loveWrapper">
+        <i class="fa-solid fa-heart main-heart"></i>
+
+        <span class="floating-heart h1">❤</span>
+        <span class="floating-heart h2">❤</span>
+        <span class="floating-heart h3">❤</span>
+      </span>
+    </h1>
+
+    <p class="hero-tag">Handmade • Sustainable • Unique</p>
+
+    <a href="/products">
+      <button class="hero-btn">Shop Now</button>
+    </a>
+  </div>
+</div>
+
+<!-- FEATURED CATEGORIES -->
+
+<section class="categories-section">
+  <div class="section-header">
+    <h2>Featured Categories</h2>
+
+    <p>Discover handmade collections crafted with care.</p>
+  </div>
+
+  <div class="categories-grid">
+    <!-- CATEGORY 1 -->
+
+    <div class="category-card">
+      <img src="/images/category-jewelry.jpg" alt="" class="category-img" />
+
+      <div class="category-overlay">
+        <h3>Handmade Bags</h3>
+      </div>
     </div>
-</body>
+
+    <!-- CATEGORY 2 -->
+
+    <div class="category-card">
+      <img src="/images/category-pottery.jpg" alt="" class="category-img" />
+
+      <div class="category-overlay">
+        <h3>Pottery</h3>
+      </div>
+    </div>
+
+    <!-- CATEGORY 3 -->
+
+    <div class="category-card">
+      <img src="/images/category-decor.jpg" alt="" class="category-img" />
+
+      <div class="category-overlay">
+        <h3>Home Decor</h3>
+      </div>
+    </div>
+
+    <!-- CATEGORY 4 -->
+
+    <!-- <div class="category-card">
+      <img src="/images/category-bags.jpg" alt="" class="category-img" />
+
+      <div class="category-overlay">
+        <h3>Jewelry</h3>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+
+<section class="featured-products">
+  <div class="section-header">
+    <h2>Featured Products</h2>
+
+    <p>Crafted pieces loved by our community.</p>
+  </div>
+
+  <div class="products-grid">
+    <!-- PRODUCT CARD -->
+
+    <div class="featured-card">
+      <div class="featured-img-wrapper">
+        <img src="/images/product-1.jpg" alt="" class="featured-img" />
+      </div>
+
+      <div class="featured-content">
+        <h4>Elegant Clay Vase</h4>
+
+        <p class="featured-price">₹1,499</p>
+
+        <button class="featured-btn">View Product</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT CARD -->
+
+    <div class="featured-card">
+      <div class="featured-img-wrapper">
+        <img src="/images/product-2.jpg" alt="" class="featured-img" />
+      </div>
+
+      <div class="featured-content">
+        <h4>Handwoven Bag</h4>
+
+        <p class="featured-price">₹2,199</p>
+
+        <button class="featured-btn">View Product</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT CARD -->
+
+    <div class="featured-card">
+      <div class="featured-img-wrapper">
+        <img src="/images/product-3.jpg" alt="" class="featured-img" />
+      </div>
+
+      <div class="featured-content">
+        <h4>Minimal Wall Art</h4>
+
+        <p class="featured-price">₹999</p>
+
+        <button class="featured-btn">View Product</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+
+<section class="why-section">
+  <div class="section-header">
+    <h2>Why Choose CraftCart?</h2>
+
+    <p>More than products — every item carries a story.</p>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <i class="fa-solid fa-hand-holding-heart"></i>
+
+      <h4>Handcrafted</h4>
+
+      <p>Every product is crafted with attention and care.</p>
+    </div>
+
+    <div class="why-card">
+      <i class="fa-solid fa-leaf"></i>
+
+      <h4>Sustainable</h4>
+
+      <p>Supporting eco-friendly and mindful creations.</p>
+    </div>
+
+    <div class="why-card">
+      <i class="fa-solid fa-truck-fast"></i>
+
+      <h4>Fast Delivery</h4>
+
+      <p>Handmade products delivered safely to your door.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+
+<section class="newsletter-section">
+  <div class="newsletter-box">
+    <h2>Join the CraftCart Community</h2>
+
+    <p>Get updates on new handmade collections and exclusive offers.</p>
+
+    <div class="newsletter-form">
+      <input type="email" placeholder="Enter your email" />
+
+      <button>Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const loveWrapper = document.getElementById("loveWrapper");
+
+  loveWrapper.addEventListener("mouseenter", () => {
+    loveWrapper.classList.add("active-heart");
+  });
+</script>

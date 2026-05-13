@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand ms-3 fs-3 logo" href="#">HandyHub</a>
+    <a class="navbar-brand ms-3 fs-3 logo" href="http://localhost:4000/">CraftCart</a>
 
     <button
       class="navbar-toggler me-5"
@@ -19,7 +19,7 @@
       aria-labelledby="offcanvasNavbarLabel"
     >
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title logo " id="offcanvasNavbarLabel">HandyHub</h5>
+        <h5 class="offcanvas-title logo " id="offcanvasNavbarLabel">CraftCart</h5>
         <button
           type="button"
           class="btn-close"
@@ -49,9 +49,9 @@
         <% if (!currUser) { %>
           <ul class="navbar-nav ms-auto mb-5 mb-lg-0 flex-row ms-5">
             
-              <a class="nav-link active nav-item text-muted fw-bold" href="/signup">Signup</a>
+              <a class="auth-link active nav-item text-muted fw-bold" href="/login">Login</a>
             
-              <a class="nav-link active nav-item text-muted fw-bold" href="/login">Login</a>
+              <a class="auth-link active nav-item text-muted fw-bold" href="/signup">Sign Up</a>
           </ul>
         <% } %>
       </div>
