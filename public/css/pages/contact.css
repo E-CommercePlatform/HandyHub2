@@ -1,0 +1,23 @@
+.btn-gradient {
+  background: linear-gradient(135deg, #f96822, #ec4899);
+  border: none;
+  color: white;
+}
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #e55a1f, #d63384);
+  color: white;
+}
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #f96822, #ec4899);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+.placeholder-small::placeholder {
+  font-size: 0.85rem;
+  color: #999;
+}

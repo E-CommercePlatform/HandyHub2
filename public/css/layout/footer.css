@@ -1,0 +1,52 @@
+.footer {
+  background-color: #222;
+  color: #fff;
+  margin-top: 20rem;
+  height: 30rem;
+}
+
+.footer-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #ffa500;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: #ff9f00;
+}
+
+.social-icons a {
+  font-size: 1.2rem;
+}
+
+.lh-lg,
+.space {
+  letter-spacing: 1px;
+}
+
+.payment {
+  width: 5rem;
+  height: 2rem;
+}
+
+@media (max-width: 990px) {
+  .footer {
+    height: 70rem;
+  }
+
+  .contact {
+    margin-left: 3.2rem;
+  }
+}
+
+.review-btn {
+  background-color: #f96822;
+  border: none;
+  color: white;
+  margin-bottom: 5rem;
+}
