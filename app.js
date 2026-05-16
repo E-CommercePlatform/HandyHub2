@@ -20,6 +20,7 @@ const dashBoardRouter = require("./routes/dashboard");
 const sellRouter = require("./routes/sell");
 const orderRoute = require("./routes/order");
 const contactRoute = require("./routes/contact");
+// const paymentRoute = require("./routes/payment")
 const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 
@@ -93,6 +94,7 @@ app.use(dashBoardRouter);
 app.use("/sell", sellRouter);
 app.use("/order", orderRoute);
 app.use("/contact", contactRoute);
+// app.use("/", paymentRoute);
 
 app.get("/wishlist", (req, res) => {
   res.render("wishlistAndCart/wishlist.ejs");
